@@ -1,4 +1,4 @@
-README.md for AirBnB clone project
+README.md for AirBnB clone project.
 This project is a clone of the popular accommodation rental website AirBnB. The goal of this project is to build a command-line interpreter that allows users to create, read, update, and delete objects from a file storage system.
 
 Command Interpreter
