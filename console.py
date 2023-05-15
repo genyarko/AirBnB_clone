@@ -1,36 +1,27 @@
 #!/usr/bin/env python3
-"""
-This is the console.py module that provides a command line interface
-for interacting with the HBNB data models.
-"""
+"""This module contains the HBNBCommand class for the console"""
 
 import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    This class defines the command interpreter for the HBNB data models.
-    """
+    """Command interpreter for the HBNB console"""
 
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
-        """
-        Quit command to exit the program.
-        """
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
-        """
-        EOF command to exit the program.
-        """
+        """EOF command to exit the program"""
+        print()
         return True
 
     def emptyline(self):
-        """
-        This method is called when an empty line is entered in the console.
-        """
+        """Do nothing on empty input line"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
