@@ -3,9 +3,9 @@
 import datetime
 import json
 import os
+from models.base_model import BaseModel
 
 
-import json
 
 class FileStorage:
     """Serializes instances to a JSON file and deserializes JSON file to instances."""
@@ -24,16 +24,23 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
-        with open(self.__file_path, mode='w', encoding='utf-8') as file:
-            json.dump({k: v.to_dict() for k, v in self.__objects.items()}, file)
+        with open(self.__file_path, mode="w", encoding="utf-8") as f:
+            new_dict = {}
+            for key, value in self.__objects.items():
+                new_dict[key] = value.to_dict()
+            json.dump(new_dict, f)
 
     def reload(self):
-        """Deserializes the JSON file to __objects."""
+        """Deserializes the JSON file to __objects.
+
+        Only if the JSON file (__file_path) exists. Otherwise, do nothing.
+        If the file doesn’t exist, no exception should be raised.
+        """
         try:
-            with open(self.__file_path, mode='r', encoding='utf-8') as file:
-                objects_dict = json.load(file)
-                for key, obj_dict in objects_dict.items():
-                    class_name, obj_id = key.split(".")
-                    self.__objects[key] = eval(class_name)(**obj_dict)
-        except FileNotFoundError:
+            with open(self.__file_path, mode="r", encoding="utf-8") as f:
+                new_dict = json.load(f)
+                for key, value in new_dict.items():
+                    class_name = key.split(".")[0]
+                    self.__objects[key] = eval(class_name)(**value)
+        except:
             pass
