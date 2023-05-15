@@ -7,7 +7,17 @@ import cmd
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for the HBNB console"""
 
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
+    __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
+
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -15,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """EOF command to exit the program"""
-        print()
+        print("")
         return True
 
     def emptyline(self):
