@@ -1,27 +1,27 @@
 #!/usr/bin/python3
-"""Module for FileStorage class."""
+"""Module containing the FileStorage class for serialization and deserialization of base classes."""
 import datetime
 import json
 import os
 
 
 class FileStorage:
-    """Class for serializtion and deserialization of base classes."""
+    """A class for serializing and deserializing base classes."""
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Returns __objects dictionary."""
+        """Returns a dictionary of all serialized objects.."""
         return FileStorage.__objects
 
     def new(self, obj):
-        """Sets new obj in __objects dictionary."""
+        """Adds a new object to the dictionary of serialized objects."""
         key = "{}.{}".format(type(obj).__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """Serialzes __objects to JSON file."""
+        """Serializes the dictionary of objects to the JSON file."""
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
             json.dump(d, f)
@@ -46,7 +46,7 @@ class FileStorage:
         return classes
 
     def reload(self):
-        """Deserializes JSON file into __objects."""
+        """Deserializes the JSON file into the dictionary of objects."""
         if not os.path.isfile(FileStorage.__file_path):
             return
         with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
@@ -56,7 +56,7 @@ class FileStorage:
             FileStorage.__objects = obj_dict
 
     def attributes(self):
-        """Returns the valid attributes and their types for classname."""
+        """Returns a dictionary of valid attributes and their types for each class."""
         attributes = {
             "BaseModel":
                      {"id": str,
